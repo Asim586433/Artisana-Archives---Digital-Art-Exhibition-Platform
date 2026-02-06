@@ -56,6 +56,53 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Page Transition */
+        .page-transition {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: pageIn 0.6s ease-out forwards;
+        }
+
+        @keyframes pageIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--surface);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Typography */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
@@ -113,6 +160,10 @@
 
         .section {
             padding: var(--spacing-xl) 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .section-dark {
@@ -132,6 +183,7 @@
         .mb-md { margin-bottom: var(--spacing-md); }
         .mb-lg { margin-bottom: var(--spacing-lg); }
         .mb-xl { margin-bottom: var(--spacing-xl); }
+        .mt-xl { margin-top: var(--spacing-xl); }
 
         /* Buttons */
         .btn {
@@ -302,7 +354,7 @@
             right: 0;
             width: 60%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
         }
 
@@ -421,6 +473,7 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
+            cursor: pointer;
         }
 
         .artist-card:hover {
@@ -431,6 +484,7 @@
         .artist-image {
             height: 300px;
             overflow: hidden;
+            background: var(--secondary);
         }
 
         .artist-image img {
@@ -452,6 +506,7 @@
             display: flex;
             gap: 8px;
             margin-top: var(--spacing-sm);
+            flex-wrap: wrap;
         }
 
         .tag {
@@ -477,6 +532,7 @@
             overflow: hidden;
             border-radius: var(--radius);
             cursor: pointer;
+            background: var(--secondary);
         }
 
         .gallery-item:nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 4; }
@@ -597,6 +653,101 @@
 
         .newsletter-input::placeholder {
             color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: var(--text-inverse);
+            padding: var(--spacing-xl) 0;
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .page-content {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* About Page */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .mission-statement {
+            background: var(--secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        /* Collection Page */
+        .collection-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: var(--secondary);
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: var(--text-inverse);
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        /* Contact Page */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: var(--spacing-sm);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            background: var(--secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius);
         }
 
         /* Footer */
@@ -807,6 +958,11 @@
                 max-height: 80vh;
                 overflow-y: auto;
             }
+            
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -892,10 +1048,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
     <!-- Header -->
     <header id="header">
         <div class="container header-container">
-            <a href="#home" class="logo">
+            <a href="#home" class="logo" data-page="home">
                 <span class="logo-icon">◈</span>
                 Artisana Archives
             </a>
@@ -904,31 +1065,30 @@
             </button>
             <nav>
                 <ul id="navMenu">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#exhibition">Exhibition</a></li>
-                    <li><a href="#artists">Artists</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#visit">Visit</a></li>
-                    <li><a href="#contact" class="btn-ghost">Contact</a></li>
+                    <li><a href="#home" class="active" data-page="home">Home</a></li>
+                    <li><a href="#exhibition" data-page="exhibition">Exhibition</a></li>
+                    <li><a href="#collection" data-page="collection">Collection</a></li>
+                    <li><a href="#artists" data-page="artists">Artists</a></li>
+                    <li><a href="#about" data-page="about">About</a></li>
+                    <li><a href="#contact" data-page="contact">Contact</a></li>
+                    <li><a href="#visit" class="btn-ghost" data-page="visit">Visit</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero">
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
             <div class="container">
                 <div class="hero-content">
                     <h1>Where Memory Meets Materiality</h1>
                     <p class="lead">Artisana Archives presents a digital-first exhibition exploring the intersection of traditional craftsmanship and contemporary digital preservation.</p>
                     <div class="hero-buttons">
-                        <a href="#exhibition" class="btn btn-primary">
+                        <a href="#exhibition" class="btn btn-primary" data-page="exhibition">
                             <i class="fas fa-calendar-alt"></i> View Exhibition
                         </a>
-                        <a href="#tickets" class="btn btn-secondary">
+                        <a href="#virtual-tour" class="btn btn-secondary" id="virtualTourBtn">
                             <i class="fas fa-ticket-alt"></i> Book Virtual Tour
                         </a>
                     </div>
@@ -953,139 +1113,57 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Exhibition Preview -->
-        <section id="exhibition" class="section">
+    <!-- Exhibition Page -->
+    <section id="exhibition" class="page">
+        <div class="page-header">
             <div class="container">
-                <h2 class="text-center">Current Exhibition</h2>
-                <p class="lead text-center mb-xl">"Echoes of Existence" explores the persistence of memory through material culture in the digital age.</p>
-                
-                <div class="exhibition-card">
-                    <div class="exhibition-image">
-                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Exhibition Installation">
-                        <div class="exhibition-badge">Now Showing</div>
+                <h1>Current Exhibition</h1>
+                <p class="lead">"Echoes of Existence" - Now through February 2024</p>
+            </div>
+        </div>
+        
+        <div class="container page-content">
+            <div class="exhibition-card">
+                <div class="exhibition-image">
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Exhibition Installation">
+                    <div class="exhibition-badge">Now Showing</div>
+                </div>
+                <div class="exhibition-content">
+                    <h2>Echoes of Existence</h2>
+                    <p class="mb-md">This immersive exhibition brings together 45 contemporary artists exploring how memory is encoded, preserved, and transformed through various material practices.</p>
+                    
+                    <div class="mb-lg">
+                        <h3>Exhibition Details</h3>
+                        <p><strong>Dates:</strong> November 15, 2023 – February 28, 2024</p>
+                        <p><strong>Location:</strong> Digital Gallery & Physical Space, Art District</p>
+                        <p><strong>Curated by:</strong> Dr. Elena Vargas & AI Co-curator</p>
+                        <p><strong>Admission:</strong> $15 General | $10 Students/Seniors | Free for Members</p>
                     </div>
-                    <div class="exhibition-content">
-                        <h3>Echoes of Existence</h3>
-                        <p class="mb-md">This immersive exhibition brings together 45 contemporary artists exploring how memory is encoded, preserved, and transformed through various material practices.</p>
-                        
-                        <div class="mb-lg">
-                            <h4>Exhibition Details</h4>
-                            <p><strong>Dates:</strong> November 15, 2023 – February 28, 2024</p>
-                            <p><strong>Location:</strong> Digital Gallery & Physical Space, Art District</p>
-                            <p><strong>Curated by:</strong> Dr. Elena Vargas & AI Co-curator</p>
+                    
+                    <div class="mb-lg">
+                        <h3>Featured Themes</h3>
+                        <div class="artist-tags">
+                            <span class="tag">Digital Memory</span>
+                            <span class="tag">Material Traces</span>
+                            <span class="tag">Cultural Preservation</span>
+                            <span class="tag">Future Archives</span>
                         </div>
-                        
-                        <div class="mb-lg">
-                            <h4>Featured Themes</h4>
-                            <div class="artist-tags">
-                                <span class="tag">Digital Memory</span>
-                                <span class="tag">Material Traces</span>
-                                <span class="tag">Cultural Preservation</span>
-                                <span class="tag">Future Archives</span>
-                            </div>
-                        </div>
-                        
-                        <div class="hero-buttons">
-                            <a href="#visit" class="btn btn-primary">Plan Your Visit</a>
-                            <a href="#virtual-tour" class="btn btn-secondary">Take Virtual Tour</a>
-                        </div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <a href="#visit" class="btn btn-primary" data-page="visit">Plan Your Visit</a>
+                        <a href="#virtual-tour" class="btn btn-secondary" id="virtualTourBtn2">Take Virtual Tour</a>
+                        <a href="#tickets" class="btn btn-ghost" id="ticketBtn">Buy Tickets</a>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Featured Artists -->
-        <section id="artists" class="section section-dark">
-            <div class="container">
-                <h2 class="text-center">Featured Artists</h2>
-                <p class="lead text-center mb-xl">Meet the visionary artists shaping contemporary conversations about memory and materiality.</p>
-                
-                <div class="artists-grid">
-                    <!-- Artist 1 -->
-                    <div class="artist-card fade-in" data-artist="1">
-                        <div class="artist-image">
-                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maya Chen">
-                        </div>
-                        <div class="artist-info">
-                            <h4>Maya Chen</h4>
-                            <p>Digital Archaeology & Mixed Media</p>
-                            <p class="mb-sm">Taipei / Berlin</p>
-                            <div class="artist-tags">
-                                <span class="tag">Digital</span>
-                                <span class="tag">Installation</span>
-                                <span class="tag">Archive</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Artist 2 -->
-                    <div class="artist-card fade-in" data-artist="2">
-                        <div class="artist-image">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kenji Sato">
-                        </div>
-                        <div class="artist-info">
-                            <h4>Kenji Sato</h4>
-                            <p>Ceramics & Digital Glazing</p>
-                            <p class="mb-sm">Kyoto / New York</p>
-                            <div class="artist-tags">
-                                <span class="tag">Ceramics</span>
-                                <span class="tag">Technology</span>
-                                <span class="tag">Tradition</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Artist 3 -->
-                    <div class="artist-card fade-in" data-artist="3">
-                        <div class="artist-image">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Isabella Rossi">
-                        </div>
-                        <div class="artist-info">
-                            <h4>Isabella Rossi</h4>
-                            <p>Textile Archives & Memory Objects</p>
-                            <p class="mb-sm">Milan / London</p>
-                            <div class="artist-tags">
-                                <span class="tag">Textile</span>
-                                <span class="tag">Memory</span>
-                                <span class="tag">Feminist</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Artist 4 -->
-                    <div class="artist-card fade-in" data-artist="4">
-                        <div class="artist-image">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Marcus Thorne">
-                        </div>
-                        <div class="artist-info">
-                            <h4>Marcus Thorne</h4>
-                            <p>AI-Generated Heritage</p>
-                            <p class="mb-sm">San Francisco / Tokyo</p>
-                            <div class="artist-tags">
-                                <span class="tag">AI</span>
-                                <span class="tag">Heritage</span>
-                                <span class="tag">Future</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="text-center mt-xl">
-                    <a href="#all-artists" class="btn btn-outline">View All Artists</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Preview -->
-        <section id="gallery" class="section">
-            <div class="container">
-                <h2 class="text-center">Gallery Preview</h2>
-                <p class="lead text-center mb-xl">Explore selected works from the exhibition collection.</p>
-                
+            
+            <div class="mt-xl">
+                <h2>Exhibition Highlights</h2>
                 <div class="gallery-grid">
-                    <!-- Artwork 1 -->
                     <div class="gallery-item fade-in" data-artwork="1">
                         <img src="https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Digital Memory Fragment">
                         <div class="gallery-overlay">
@@ -1094,182 +1172,344 @@
                         </div>
                     </div>
                     
-                    <!-- Artwork 2 -->
                     <div class="gallery-item fade-in" data-artwork="2">
-                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80" alt="Ceramic Data Vessel">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ceramic Data Vessel">
                         <div class="gallery-overlay">
                             <h4>Ceramic Data Vessel</h4>
                             <p>Kenji Sato | 2022</p>
                         </div>
                     </div>
                     
-                    <!-- Artwork 3 -->
                     <div class="gallery-item fade-in" data-artwork="3">
-                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Memory Weave">
+                        <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Memory Weave">
                         <div class="gallery-overlay">
                             <h4>Memory Weave</h4>
                             <p>Isabella Rossi | 2023</p>
                         </div>
                     </div>
-                    
-                    <!-- Artwork 4 -->
-                    <div class="gallery-item fade-in" data-artwork="4">
-                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Heritage Pattern">
-                        <div class="gallery-overlay">
-                            <h4>AI Heritage Pattern</h4>
-                            <p>Marcus Thorne | 2023</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Artwork 5 -->
-                    <div class="gallery-item fade-in" data-artwork="5">
-                        <img src="https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Data Fossil">
-                        <div class="gallery-overlay">
-                            <h4>Data Fossil</h4>
-                            <p>Collective Work | 2023</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Artwork 6 -->
-                    <div class="gallery-item fade-in" data-artwork="6">
-                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Memory Circuit">
-                        <div class="gallery-overlay">
-                            <h4>Memory Circuit</h4>
-                            <p>Digital Collective | 2023</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="text-center mt-xl">
-                    <a href="#full-gallery" class="btn btn-primary">Explore Full Gallery</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Events & Programs -->
-        <section id="events" class="section section-dark">
+    <!-- Collection Page -->
+    <section id="collection" class="page">
+        <div class="page-header">
             <div class="container">
-                <h2 class="text-center">Upcoming Events</h2>
-                <p class="lead text-center mb-xl">Join us for talks, workshops, and immersive experiences.</p>
-                
-                <div class="timeline">
-                    <!-- Event 1 -->
-                    <div class="event-item fade-in">
-                        <div class="event-date">
-                            <span class="event-day">15</span>
-                            <span class="event-month">Nov</span>
-                        </div>
-                        <div class="event-dot"></div>
-                        <div class="event-details">
-                            <h4>Opening Night: Curator's Preview</h4>
-                            <p>Join curators for an exclusive preview of "Echoes of Existence" with artist introductions and reception.</p>
-                            <p><strong>Time:</strong> 6:00 PM | <strong>Format:</strong> Hybrid (In-person & Virtual)</p>
-                            <button class="btn btn-outline" style="margin-top: 15px;">Register Now</button>
-                        </div>
+                <h1>Digital Collection</h1>
+                <p class="lead">Explore our archive of contemporary artworks</p>
+            </div>
+        </div>
+        
+        <div class="container page-content">
+            <div class="collection-filters">
+                <button class="filter-btn active" data-filter="all">All Works</button>
+                <button class="filter-btn" data-filter="digital">Digital Art</button>
+                <button class="filter-btn" data-filter="mixed">Mixed Media</button>
+                <button class="filter-btn" data-filter="installation">Installation</button>
+                <button class="filter-btn" data-filter="traditional">Traditional</button>
+            </div>
+            
+            <div class="collection-grid" id="collectionGrid">
+                <!-- Collection items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists Page -->
+    <section id="artists" class="page section-dark">
+        <div class="container section">
+            <h2 class="text-center">Featured Artists</h2>
+            <p class="lead text-center mb-xl">Meet the visionary artists shaping contemporary conversations about memory and materiality.</p>
+            
+            <div class="artists-grid">
+                <!-- Artist 1 -->
+                <div class="artist-card fade-in" data-artist="1">
+                    <div class="artist-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maya Chen">
                     </div>
-                    
-                    <!-- Event 2 -->
-                    <div class="event-item fade-in">
-                        <div class="event-date">
-                            <span class="event-day">22</span>
-                            <span class="event-month">Nov</span>
-                        </div>
-                        <div class="event-dot"></div>
-                        <div class="event-details">
-                            <h4>Artist Talk: Maya Chen</h4>
-                            <p>Digital archaeology and the ethics of memory preservation in the age of big data.</p>
-                            <p><strong>Time:</strong> 7:00 PM | <strong>Format:</strong> Virtual Only</p>
-                            <button class="btn btn-outline" style="margin-top: 15px;">Register Now</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Event 3 -->
-                    <div class="event-item fade-in">
-                        <div class="event-date">
-                            <span class="event-day">05</span>
-                            <span class="event-month">Dec</span>
-                        </div>
-                        <div class="event-dot"></div>
-                        <div class="event-details">
-                            <h4>Workshop: Digital Memory Keeping</h4>
-                            <p>Hands-on workshop exploring personal digital archiving and memory preservation techniques.</p>
-                            <p><strong>Time:</strong> 2:00 PM | <strong>Format:</strong> In-person</p>
-                            <button class="btn btn-outline" style="margin-top: 15px;">Register Now</button>
+                    <div class="artist-info">
+                        <h4>Maya Chen</h4>
+                        <p>Digital Archaeology & Mixed Media</p>
+                        <p class="mb-sm">Taipei / Berlin</p>
+                        <div class="artist-tags">
+                            <span class="tag">Digital</span>
+                            <span class="tag">Installation</span>
+                            <span class="tag">Archive</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="newsletter mt-xl">
-                    <h3 class="text-center">Stay Connected</h3>
-                    <p class="text-center">Subscribe for exhibition updates, virtual event invitations, and artist insights.</p>
-                    <div class="newsletter-form">
-                        <input type="email" class="newsletter-input" placeholder="Your email address">
-                        <button class="btn btn-primary">Subscribe</button>
+                <!-- Artist 2 -->
+                <div class="artist-card fade-in" data-artist="2">
+                    <div class="artist-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kenji Sato">
+                    </div>
+                    <div class="artist-info">
+                        <h4>Kenji Sato</h4>
+                        <p>Ceramics & Digital Glazing</p>
+                        <p class="mb-sm">Kyoto / New York</p>
+                        <div class="artist-tags">
+                            <span class="tag">Ceramics</span>
+                            <span class="tag">Technology</span>
+                            <span class="tag">Tradition</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Artist 3 -->
+                <div class="artist-card fade-in" data-artist="3">
+                    <div class="artist-image">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Isabella Rossi">
+                    </div>
+                    <div class="artist-info">
+                        <h4>Isabella Rossi</h4>
+                        <p>Textile Archives & Memory Objects</p>
+                        <p class="mb-sm">Milan / London</p>
+                        <div class="artist-tags">
+                            <span class="tag">Textile</span>
+                            <span class="tag">Memory</span>
+                            <span class="tag">Feminist</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Artist 4 -->
+                <div class="artist-card fade-in" data-artist="4">
+                    <div class="artist-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Marcus Thorne">
+                    </div>
+                    <div class="artist-info">
+                        <h4>Marcus Thorne</h4>
+                        <p>AI-Generated Heritage</p>
+                        <p class="mb-sm">San Francisco / Tokyo</p>
+                        <div class="artist-tags">
+                            <span class="tag">AI</span>
+                            <span class="tag">Heritage</span>
+                            <span class="tag">Future</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+            
+            <div class="text-center mt-xl">
+                <button class="btn btn-outline" id="loadMoreArtists">Load More Artists</button>
+            </div>
+        </div>
+    </section>
 
-        <!-- Visit Info -->
-        <section id="visit" class="section">
+    <!-- About Page -->
+    <section id="about" class="page">
+        <div class="page-header">
             <div class="container">
-                <h2 class="text-center">Plan Your Visit</h2>
-                <p class="lead text-center mb-xl">Experience the exhibition your way—in person or virtually.</p>
-                
-                <div class="exhibition-card">
-                    <div class="exhibition-content">
-                        <h3>Visit Options</h3>
-                        
-                        <div class="mb-lg">
-                            <h4>Physical Exhibition</h4>
-                            <p><strong>Location:</strong> Artisana Gallery, 456 Innovation District</p>
-                            <p><strong>Hours:</strong> Tuesday–Sunday, 10am–8pm | Monday by appointment</p>
-                            <p><strong>Admission:</strong> $15 General | $10 Students/Seniors | Members Free</p>
-                        </div>
-                        
-                        <div class="mb-lg">
-                            <h4>Virtual Experience</h4>
-                            <p>360° virtual tour, augmented reality features, and interactive digital exhibits available 24/7.</p>
-                            <div class="artist-tags">
-                                <span class="tag">VR Compatible</span>
-                                <span class="tag">Mobile Friendly</span>
-                                <span class="tag">Accessible</span>
+                <h1>About Artisana Archives</h1>
+                <p class="lead">Preserving contemporary art history through digital innovation</p>
+            </div>
+        </div>
+        
+        <div class="container page-content">
+            <div class="about-content">
+                <div>
+                    <h2>Our Mission</h2>
+                    <p>Artisana Archives is dedicated to preserving and showcasing contemporary art that explores the intersection of traditional craftsmanship and digital technology. We believe in creating accessible archives that bridge the gap between physical materiality and digital preservation.</p>
+                    <p>Founded in 2015, our archive has grown to include works from over 200 artists across 35 countries, creating one of the most comprehensive collections of digitally-informed contemporary art.</p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1577083551718-30f510b5abf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Archive Collection" style="border-radius: var(--radius);">
+                </div>
+            </div>
+            
+            <div class="mission-statement">
+                <h3>Digital Preservation Initiative</h3>
+                <p>Our Digital Preservation Initiative uses cutting-edge technology to create high-resolution 3D scans, virtual reality experiences, and blockchain-based authentication for contemporary artworks. This ensures that each piece in our collection is preserved for future generations while remaining accessible to global audiences.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">Artists</span>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">1,500+</span>
+                    <span class="stat-label">Artworks</span>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">35</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Years</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p class="lead">Get in touch with our team</p>
+            </div>
+        </div>
+        
+        <div class="container page-content">
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <input type="text" placeholder="First Name" required>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Last Name" required>
                             </div>
                         </div>
                         
-                        <div class="hero-buttons">
-                            <a href="#tickets" class="btn btn-primary">Buy Tickets</a>
-                            <a href="#virtual" class="btn btn-secondary">Start Virtual Tour</a>
-                        </div>
-                    </div>
-                    <div class="exhibition-image">
-                        <img src="https://images.unsplash.com/photo-1577083551718-30f510b5abf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Gallery Space">
-                    </div>
+                        <input type="email" placeholder="Email Address" required>
+                        
+                        <select required>
+                            <option value="">Select Inquiry Type</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="visit">Visit Information</option>
+                            <option value="research">Research Request</option>
+                            <option value="artist">Artist Submission</option>
+                            <option value="press">Press Inquiry</option>
+                        </select>
+                        
+                        <textarea placeholder="Your Message" required></textarea>
+                        
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
                 </div>
-            </div>
-        </section>
-
-        <!-- Modal -->
-        <div id="artModal" class="modal">
-            <div class="modal-content">
-                <button class="modal-close" id="modalClose">&times;</button>
-                <div class="modal-body">
-                    <img id="modalImage" class="modal-image" src="" alt="">
-                    <div class="modal-info">
-                        <h3 id="modalTitle"></h3>
-                        <p id="modalArtist"></p>
-                        <p id="modalYear"></p>
-                        <p id="modalDescription" class="mb-lg"></p>
-                        <div id="modalTags" class="artist-tags mb-lg"></div>
-                        <a href="#collection" class="btn btn-primary">View in Collection</a>
+                
+                <div class="contact-info">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="mb-lg">
+                        <h4>Location</h4>
+                        <p>Artisana Gallery<br>456 Innovation District<br>Art Center, AC 10002</p>
+                    </div>
+                    
+                    <div class="mb-lg">
+                        <h4>Hours</h4>
+                        <p>Tuesday–Sunday: 10am–8pm<br>Monday: By appointment only</p>
+                    </div>
+                    
+                    <div class="mb-lg">
+                        <h4>Contact</h4>
+                        <p>info@artisana-archives.org<br>+1 (555) 123-4567</p>
+                    </div>
+                    
+                    <div>
+                        <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Visit Page -->
+    <section id="visit" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Plan Your Visit</h1>
+                <p class="lead">Experience the exhibition your way</p>
+            </div>
+        </div>
+        
+        <div class="container page-content">
+            <div class="exhibition-card">
+                <div class="exhibition-content">
+                    <h2>Visit Options</h2>
+                    
+                    <div class="mb-lg">
+                        <h3>Physical Exhibition</h3>
+                        <p><strong>Location:</strong> Artisana Gallery, 456 Innovation District</p>
+                        <p><strong>Hours:</strong> Tuesday–Sunday, 10am–8pm | Monday by appointment</p>
+                        <p><strong>Admission:</strong> $15 General | $10 Students/Seniors | Members Free</p>
+                    </div>
+                    
+                    <div class="mb-lg">
+                        <h3>Virtual Experience</h3>
+                        <p>360° virtual tour, augmented reality features, and interactive digital exhibits available 24/7.</p>
+                        <div class="artist-tags">
+                            <span class="tag">VR Compatible</span>
+                            <span class="tag">Mobile Friendly</span>
+                            <span class="tag">Accessible</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" id="getDirectionsBtn">Get Directions</button>
+                        <button class="btn btn-secondary" id="startVirtualTourBtn">Start Virtual Tour</button>
+                        <button class="btn btn-ghost" id="bookGroupVisitBtn">Book Group Visit</button>
+                    </div>
+                </div>
+                <div class="exhibition-image">
+                    <img src="https://images.unsplash.com/photo-1577083551718-30f510b5abf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Gallery Space">
+                </div>
+            </div>
+            
+            <div class="mt-xl">
+                <h2>Visitor Information</h2>
+                <div class="stats">
+                    <div class="stat-item fade-in">
+                        <i class="fas fa-wheelchair" style="font-size: 2rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4>Accessibility</h4>
+                        <p>Fully wheelchair accessible with elevator access to all floors</p>
+                    </div>
+                    
+                    <div class="stat-item fade-in">
+                        <i class="fas fa-car" style="font-size: 2rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4>Parking</h4>
+                        <p>Underground parking available with EV charging stations</p>
+                    </div>
+                    
+                    <div class="stat-item fade-in">
+                        <i class="fas fa-subway" style="font-size: 2rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4>Public Transport</h4>
+                        <p>Direct subway access via Art District Station</p>
+                    </div>
+                    
+                    <div class="stat-item fade-in">
+                        <i class="fas fa-utensils" style="font-size: 2rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4>Café</h4>
+                        <p>On-site café serving organic, locally sourced food</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="artModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body">
+                <img id="modalImage" class="modal-image" src="" alt="">
+                <div class="modal-info">
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalArtist"></p>
+                    <p id="modalYear"></p>
+                    <p id="modalDescription" class="mb-lg"></p>
+                    <div id="modalTags" class="artist-tags mb-lg"></div>
+                    <button class="btn btn-primary" id="modalCollectionBtn">View in Collection</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
@@ -1286,17 +1526,17 @@
                 <div class="footer-col">
                     <h4 class="footer-heading">Exhibition</h4>
                     <ul class="footer-links">
-                        <li><a href="#current">Current Exhibition</a></li>
-                        <li><a href="#past">Past Exhibitions</a></li>
+                        <li><a href="#exhibition" data-page="exhibition">Current Exhibition</a></li>
+                        <li><a href="#past-exhibitions">Past Exhibitions</a></li>
                         <li><a href="#upcoming">Upcoming</a></li>
-                        <li><a href="#virtual">Virtual Tours</a></li>
+                        <li><a href="#virtual" id="footerVirtualTour">Virtual Tours</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h4 class="footer-heading">Resources</h4>
                     <ul class="footer-links">
-                        <li><a href="#artists">Artist Directory</a></li>
+                        <li><a href="#collection" data-page="collection">Digital Collection</a></li>
                         <li><a href="#research">Research Archive</a></li>
                         <li><a href="#publications">Publications</a></li>
                         <li><a href="#education">Educational Materials</a></li>
@@ -1306,7 +1546,7 @@
                 <div class="footer-col">
                     <h4 class="footer-heading">Connect</h4>
                     <ul class="footer-links">
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#contact" data-page="contact">Contact Us</a></li>
                         <li><a href="#press">Press Inquiries</a></li>
                         <li><a href="#partnerships">Partnerships</a></li>
                         <li><a href="#support">Support Our Work</a></li>
@@ -1321,9 +1561,10 @@
     </footer>
 
     <script>
-        // Modern JavaScript for Artisana Archives
+        // Modern JavaScript for Artisana Archives - Fully Functional
         document.addEventListener('DOMContentLoaded', function() {
             // Elements
+            const loadingScreen = document.getElementById('loadingScreen');
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
             const header = document.getElementById('header');
@@ -1335,8 +1576,14 @@
             const modalYear = document.getElementById('modalYear');
             const modalDescription = document.getElementById('modalDescription');
             const modalTags = document.getElementById('modalTags');
+            const modalCollectionBtn = document.getElementById('modalCollectionBtn');
+            const collectionGrid = document.getElementById('collectionGrid');
+            const loadMoreArtistsBtn = document.getElementById('loadMoreArtists');
             
-            // Art data
+            // Current page state
+            let currentPage = 'home';
+            
+            // Art data with working images
             const artworks = [
                 {
                     id: 1,
@@ -1345,7 +1592,9 @@
                     year: "2023",
                     description: "This work explores the fragmentation of memory in digital spaces. Using data visualization techniques and mixed media, Chen creates a visual representation of how memories are stored, retrieved, and sometimes lost in digital systems.",
                     tags: ["Digital", "Data Visualization", "Memory", "Mixed Media"],
-                    image: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    category: "digital",
+                    image: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$4,200"
                 },
                 {
                     id: 2,
@@ -1354,7 +1603,9 @@
                     year: "2022",
                     description: "Traditional ceramic techniques meet digital data storage. Each vessel contains embedded digital memory chips that store cultural heritage data, creating a physical archive of digital information.",
                     tags: ["Ceramic", "Technology", "Archive", "Heritage"],
-                    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    category: "mixed",
+                    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$3,800"
                 },
                 {
                     id: 3,
@@ -1363,7 +1614,9 @@
                     year: "2023",
                     description: "Handwoven textile incorporating family archives, photographs, and personal narratives. Each thread represents a memory strand, creating a tactile representation of personal history.",
                     tags: ["Textile", "Memory", "Personal Archive", "Craft"],
-                    image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    category: "traditional",
+                    image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$5,500"
                 },
                 {
                     id: 4,
@@ -1372,7 +1625,53 @@
                     year: "2023",
                     description: "AI-generated patterns based on cultural heritage data from multiple civilizations. The algorithm creates new visual languages that reflect both preservation and evolution of cultural memory.",
                     tags: ["AI", "Pattern", "Heritage", "Digital"],
-                    image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    category: "digital",
+                    image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$6,200"
+                },
+                {
+                    id: 5,
+                    title: "Neural Lace Installation",
+                    artist: "Dr. Lena Schmidt",
+                    year: "2023",
+                    description: "Interactive installation using neural networks to generate real-time visual patterns based on visitor brainwave data.",
+                    tags: ["Installation", "AI", "Interactive", "Neural"],
+                    category: "installation",
+                    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$12,000"
+                },
+                {
+                    id: 6,
+                    title: "Quantum Memory Field",
+                    artist: "Alexei Petrov",
+                    year: "2022",
+                    description: "Light installation exploring quantum memory concepts through suspended fiber optics and projection mapping.",
+                    tags: ["Installation", "Light", "Quantum", "Projection"],
+                    category: "installation",
+                    image: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$8,500"
+                },
+                {
+                    id: 7,
+                    title: "Bio-Organic Archive",
+                    artist: "Sofia Martinez",
+                    year: "2023",
+                    description: "Living installation using bioluminescent bacteria to create evolving patterns that change with environmental data.",
+                    tags: ["Bio-Art", "Living", "Organic", "Data"],
+                    category: "mixed",
+                    image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$7,800"
+                },
+                {
+                    id: 8,
+                    title: "Pixelated Ancestry",
+                    artist: "James Wilson",
+                    year: "2022",
+                    description: "Digital mosaic created from family photo archives, exploring the pixel as the basic unit of digital memory.",
+                    tags: ["Digital", "Mosaic", "Family", "Archive"],
+                    category: "digital",
+                    image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    price: "$3,200"
                 }
             ];
             
@@ -1383,41 +1682,71 @@
                     name: "Maya Chen",
                     practice: "Digital Archaeology & Mixed Media",
                     location: "Taipei / Berlin",
-                    bio: "Maya Chen's work examines the intersection of digital technology and cultural memory. Her practice combines data visualization, archival research, and material experimentation to question how we preserve memory in the digital age."
+                    bio: "Maya Chen's work examines the intersection of digital technology and cultural memory. Her practice combines data visualization, archival research, and material experimentation to question how we preserve memory in the digital age.",
+                    works: 24,
+                    joined: 2018
                 },
                 {
                     id: 2,
                     name: "Kenji Sato",
                     practice: "Ceramics & Digital Glazing",
                     location: "Kyoto / New York",
-                    bio: "Sato bridges traditional Japanese ceramic techniques with contemporary digital processes. His work explores how material culture can serve as a vessel for digital information and cultural continuity."
+                    bio: "Sato bridges traditional Japanese ceramic techniques with contemporary digital processes. His work explores how material culture can serve as a vessel for digital information and cultural continuity.",
+                    works: 18,
+                    joined: 2019
                 },
                 {
                     id: 3,
                     name: "Isabella Rossi",
                     practice: "Textile Archives & Memory Objects",
                     location: "Milan / London",
-                    bio: "Rossi's textile-based practice focuses on personal and collective memory. She incorporates family archives, photographs, and oral histories into large-scale woven installations."
+                    bio: "Rossi's textile-based practice focuses on personal and collective memory. She incorporates family archives, photographs, and oral histories into large-scale woven installations.",
+                    works: 32,
+                    joined: 2017
                 },
                 {
                     id: 4,
                     name: "Marcus Thorne",
                     practice: "AI-Generated Heritage",
                     location: "San Francisco / Tokyo",
-                    bio: "Thorne uses artificial intelligence to generate new forms of cultural expression based on heritage data. His work questions authorship, tradition, and the future of cultural preservation."
+                    bio: "Thorne uses artificial intelligence to generate new forms of cultural expression based on heritage data. His work questions authorship, tradition, and the future of cultural preservation.",
+                    works: 15,
+                    joined: 2020
+                },
+                {
+                    id: 5,
+                    name: "Dr. Lena Schmidt",
+                    practice: "Neuro-Art & Interactive Systems",
+                    location: "Berlin / Seoul",
+                    bio: "Dr. Schmidt combines neuroscience with interactive art, creating installations that respond to biological data and explore consciousness as artistic medium.",
+                    works: 12,
+                    joined: 2021
+                },
+                {
+                    id: 6,
+                    name: "Alexei Petrov",
+                    practice: "Quantum Art & Light Installations",
+                    location: "Moscow / Dubai",
+                    bio: "Petrov explores quantum physics through large-scale light installations, creating immersive environments that visualize theoretical concepts.",
+                    works: 21,
+                    joined: 2019
                 }
             ];
             
             // Initialize
-            init();
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                init();
+            }, 1000);
             
             function init() {
                 setupNavigation();
+                setupPageSystem();
                 setupGallery();
+                setupCollection();
                 setupEventListeners();
                 setupStatsCounter();
                 setupFadeAnimations();
-                setupSmoothScroll();
             }
             
             // Navigation
@@ -1437,113 +1766,81 @@
                     } else {
                         header.classList.remove('scrolled');
                     }
-                    
-                    // Update active nav
-                    updateActiveNav();
-                });
-                
-                // Close mobile menu on link click
-                document.querySelectorAll('nav a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('active');
-                        navToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    });
                 });
             }
             
-            // Update active navigation
-            function updateActiveNav() {
-                const sections = document.querySelectorAll('section[id]');
-                const scrollPos = window.scrollY + 100;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    const sectionId = section.getAttribute('id');
-                    
-                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-                        const correspondingNav = document.querySelector(`nav a[href="#${sectionId}"]`);
-                        if (correspondingNav) {
-                            correspondingNav.classList.add('active');
-                        }
-                    }
-                });
-            }
-            
-            // Smooth scroll
-            function setupSmoothScroll() {
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
+            // Page system
+            function setupPageSystem() {
+                // Page navigation
+                document.querySelectorAll('a[data-page], nav a').forEach(link => {
+                    link.addEventListener('click', function(e) {
                         e.preventDefault();
                         
-                        const targetId = this.getAttribute('href');
-                        if (targetId === '#') return;
+                        const pageId = this.getAttribute('data-page') || this.getAttribute('href').substring(1);
                         
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                        }
+                        // Close mobile menu
+                        navMenu.classList.remove('active');
+                        navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        
+                        // Update active nav
+                        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                        const activeNav = document.querySelector(`nav a[data-page="${pageId}"], nav a[href="#${pageId}"]`);
+                        if (activeNav) activeNav.classList.add('active');
+                        
+                        // Switch page
+                        switchPage(pageId);
                     });
                 });
+                
+                // Initial page
+                switchPage('home');
+            }
+            
+            function switchPage(pageId) {
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show selected page
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    currentPage = pageId;
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                    
+                    // Trigger animations
+                    setTimeout(() => {
+                        setupFadeAnimations();
+                    }, 100);
+                    
+                    // Load page-specific content
+                    if (pageId === 'collection') {
+                        loadCollection();
+                    }
+                }
             }
             
             // Gallery functionality
             function setupGallery() {
                 // Gallery item clicks
-                document.querySelectorAll('.gallery-item').forEach(item => {
-                    item.addEventListener('click', () => {
-                        const artworkId = item.getAttribute('data-artwork');
+                document.addEventListener('click', (e) => {
+                    const galleryItem = e.target.closest('.gallery-item');
+                    const artistCard = e.target.closest('.artist-card');
+                    
+                    if (galleryItem) {
+                        const artworkId = galleryItem.getAttribute('data-artwork');
                         const artwork = artworks.find(a => a.id == artworkId) || artworks[0];
-                        
-                        // Update modal
-                        modalImage.src = artwork.image;
-                        modalImage.alt = artwork.title;
-                        modalTitle.textContent = artwork.title;
-                        modalArtist.textContent = `By ${artwork.artist}`;
-                        modalYear.textContent = artwork.year;
-                        modalDescription.textContent = artwork.description;
-                        
-                        // Clear and add tags
-                        modalTags.innerHTML = '';
-                        artwork.tags.forEach(tag => {
-                            const tagElement = document.createElement('span');
-                            tagElement.className = 'tag';
-                            tagElement.textContent = tag;
-                            modalTags.appendChild(tagElement);
-                        });
-                        
-                        // Show modal
-                        modal.style.display = 'flex';
-                        document.body.style.overflow = 'hidden';
-                    });
-                });
-                
-                // Artist card clicks
-                document.querySelectorAll('.artist-card').forEach(card => {
-                    card.addEventListener('click', () => {
-                        const artistId = card.getAttribute('data-artist');
+                        showArtworkModal(artwork);
+                    }
+                    
+                    if (artistCard) {
+                        const artistId = artistCard.getAttribute('data-artist');
                         const artist = artists.find(a => a.id == artistId) || artists[0];
-                        
-                        // Update modal for artist
-                        const artistImage = card.querySelector('img').src;
-                        modalImage.src = artistImage;
-                        modalImage.alt = artist.name;
-                        modalTitle.textContent = artist.name;
-                        modalArtist.textContent = artist.practice;
-                        modalYear.textContent = artist.location;
-                        modalDescription.textContent = artist.bio;
-                        
-                        // Update tags
-                        modalTags.innerHTML = '<span class="tag">Artist Profile</span><span class="tag">Featured</span>';
-                        
-                        // Show modal
-                        modal.style.display = 'flex';
-                        document.body.style.overflow = 'hidden';
-                    });
+                        showArtistModal(artist);
+                    }
                 });
                 
                 // Modal close
@@ -1559,49 +1856,222 @@
                         document.body.style.overflow = 'auto';
                     }
                 });
+                
+                // View in collection button
+                modalCollectionBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    switchPage('collection');
+                });
+            }
+            
+            function showArtworkModal(artwork) {
+                modalImage.src = artwork.image;
+                modalImage.alt = artwork.title;
+                modalTitle.textContent = artwork.title;
+                modalArtist.textContent = `By ${artwork.artist}`;
+                modalYear.textContent = artwork.year;
+                modalDescription.textContent = artwork.description;
+                
+                // Clear and add tags
+                modalTags.innerHTML = '';
+                artwork.tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    modalTags.appendChild(tagElement);
+                });
+                
+                // Show modal
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function showArtistModal(artist) {
+                modalImage.src = `https://images.unsplash.com/photo-${150699082 + artist.id}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80`;
+                modalImage.alt = artist.name;
+                modalTitle.textContent = artist.name;
+                modalArtist.textContent = artist.practice;
+                modalYear.textContent = `Based in ${artist.location}`;
+                modalDescription.textContent = `${artist.bio}\n\nFeatured works: ${artist.works}\nMember since: ${artist.joined}`;
+                
+                // Clear and add tags
+                modalTags.innerHTML = '';
+                ['Featured Artist', 'Active Member', 'International'].forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    modalTags.appendChild(tagElement);
+                });
+                
+                // Show modal
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Collection functionality
+            function setupCollection() {
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Update active button
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Filter collection
+                        const filter = this.getAttribute('data-filter');
+                        loadCollection(filter);
+                    });
+                });
+                
+                // Initial load
+                loadCollection();
+            }
+            
+            function loadCollection(filter = 'all') {
+                collectionGrid.innerHTML = '';
+                
+                const filteredArtworks = filter === 'all' 
+                    ? artworks 
+                    : artworks.filter(art => art.category === filter);
+                
+                filteredArtworks.forEach(artwork => {
+                    const colItem = document.createElement('div');
+                    colItem.className = 'artist-card fade-in';
+                    colItem.innerHTML = `
+                        <div class="artist-image">
+                            <img src="${artwork.image}" alt="${artwork.title}">
+                        </div>
+                        <div class="artist-info">
+                            <h4>${artwork.title}</h4>
+                            <p>${artwork.artist} | ${artwork.year}</p>
+                            <div class="artist-tags">
+                                ${artwork.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                            <p style="margin-top: 10px; font-weight: 600;">${artwork.price}</p>
+                            <button class="btn btn-primary" style="margin-top: 10px; width: 100%;" data-artwork="${artwork.id}">View Details</button>
+                        </div>
+                    `;
+                    
+                    // Add click handler
+                    colItem.querySelector('button').addEventListener('click', () => {
+                        showArtworkModal(artwork);
+                    });
+                    
+                    collectionGrid.appendChild(colItem);
+                });
+                
+                // Trigger animations
+                setTimeout(() => {
+                    setupFadeAnimations();
+                }, 100);
             }
             
             // Event listeners
             function setupEventListeners() {
-                // Event registration buttons
-                document.querySelectorAll('.event-item button').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const eventTitle = button.closest('.event-item').querySelector('h4').textContent;
-                        alert(`Thank you for registering for "${eventTitle}". A confirmation email has been sent to you.`);
+                // Virtual tour buttons
+                document.querySelectorAll('#virtualTourBtn, #virtualTourBtn2, #startVirtualTourBtn, #footerVirtualTour').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('🚀 Virtual Tour System Loading...\n\nYou would now enter our immersive 360° virtual exhibition experience. Features include:\n\n• 360° gallery navigation\n• Audio guides\n• Interactive exhibits\n• AR object viewing\n• Multi-user virtual events\n\n(For this demo, imagine you\'re now exploring the exhibition virtually!)');
                     });
                 });
                 
-                // Newsletter subscription
-                const newsletterBtn = document.querySelector('.newsletter .btn-primary');
-                if (newsletterBtn) {
-                    newsletterBtn.addEventListener('click', () => {
-                        const emailInput = newsletterBtn.previousElementSibling;
+                // Ticket buttons
+                document.querySelectorAll('#ticketBtn, a[href="#tickets"]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('🎟️ Ticket Purchase Portal\n\nSelect your ticket type:\n\n• General Admission: $15\n• Student/Senior: $10\n• Member: Free\n• Virtual Only: $8\n• Family Package (4): $45\n\n(For this demo, consider yourself registered!)');
+                    });
+                });
+                
+                // Get directions
+                document.getElementById('getDirectionsBtn')?.addEventListener('click', function() {
+                    alert('📍 Getting Directions to Artisana Archives\n\nAddress: 456 Innovation District, Art Center\n\nTransportation Options:\n• Subway: Art District Station (Lines 1, 2, 3)\n• Bus: Routes 10, 15, 22\n• Parking: Underground garage available\n\nOpening your maps application...');
+                });
+                
+                // Book group visit
+                document.getElementById('bookGroupVisitBtn')?.addEventListener('click', function() {
+                    alert('👥 Group Visit Booking\n\nFor groups of 10 or more, please provide:\n\n• Preferred date and time\n• Number of attendees\n• Age range of group\n• Special requirements\n\nWe\'ll contact you within 24 hours to confirm your group booking.');
+                });
+                
+                // Load more artists
+                if (loadMoreArtistsBtn) {
+                    loadMoreArtistsBtn.addEventListener('click', function() {
+                        const artistsGrid = document.querySelector('.artists-grid');
+                        
+                        // Add more artists (in a real app, this would be an API call)
+                        for (let i = 4; i < Math.min(6, artists.length); i++) {
+                            const artist = artists[i];
+                            const artistCard = document.createElement('div');
+                            artistCard.className = 'artist-card fade-in';
+                            artistCard.setAttribute('data-artist', artist.id);
+                            artistCard.innerHTML = `
+                                <div class="artist-image">
+                                    <img src="https://images.unsplash.com/photo-${150699082 + artist.id}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="${artist.name}">
+                                </div>
+                                <div class="artist-info">
+                                    <h4>${artist.name}</h4>
+                                    <p>${artist.practice}</p>
+                                    <p class="mb-sm">${artist.location}</p>
+                                    <div class="artist-tags">
+                                        <span class="tag">Featured</span>
+                                        <span class="tag">International</span>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            artistsGrid.appendChild(artistCard);
+                        }
+                        
+                        // Disable button if all artists loaded
+                        if (artistsGrid.children.length >= artists.length) {
+                            loadMoreArtistsBtn.disabled = true;
+                            loadMoreArtistsBtn.textContent = 'All Artists Loaded';
+                        }
+                        
+                        // Trigger animations
+                        setTimeout(() => {
+                            setupFadeAnimations();
+                        }, 100);
+                    });
+                }
+                
+                // Contact form
+                const contactForm = document.getElementById('contactForm');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        
+                        // Get form data
+                        const formData = new FormData(this);
+                        const name = this.querySelector('input[type="text"]').value;
+                        
+                        // Simulate form submission
+                        console.log('Form submitted:', Object.fromEntries(formData));
+                        
+                        // Show success message
+                        alert(`✅ Thank you, ${name}! Your message has been sent.\n\nOur team will respond within 48 hours. You'll receive a confirmation email shortly.`);
+                        
+                        // Reset form
+                        this.reset();
+                    });
+                }
+                
+                // Newsletter form
+                const newsletterForm = document.querySelector('.newsletter-form');
+                if (newsletterForm) {
+                    const newsletterBtn = newsletterForm.querySelector('.btn-primary');
+                    newsletterBtn.addEventListener('click', function() {
+                        const emailInput = newsletterForm.querySelector('input[type="email"]');
                         if (emailInput.value && emailInput.value.includes('@')) {
-                            alert('Thank you for subscribing to Artisana Archives! You\'ll receive our next update soon.');
+                            alert('📬 Thank you for subscribing to Artisana Archives!\n\nYou\'ll receive:\n• Exhibition updates\n• Artist interviews\n• Virtual event invitations\n• Exclusive content previews\n\nYour first newsletter will arrive within 24 hours.');
                             emailInput.value = '';
                         } else {
                             alert('Please enter a valid email address.');
                         }
                     });
                 }
-                
-                // Virtual tour button
-                const virtualTourBtn = document.querySelector('a[href="#virtual-tour"]');
-                if (virtualTourBtn) {
-                    virtualTourBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        alert('Virtual tour system loading... This would launch an immersive 360° gallery experience.');
-                    });
-                }
-                
-                // Ticket purchase
-                const ticketBtns = document.querySelectorAll('a[href="#tickets"]');
-                ticketBtns.forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        alert('Ticket purchase portal would open here. For demo purposes, consider yourself registered!');
-                    });
-                });
             }
             
             // Animated stats counter
@@ -1619,6 +2089,8 @@
                 
                 Object.keys(counters).forEach(id => {
                     const element = document.getElementById(id);
+                    if (!element) return;
+                    
                     const target = counters[id];
                     let current = 0;
                     const increment = target / steps;
@@ -1637,7 +2109,7 @@
             
             // Fade in animations
             function setupFadeAnimations() {
-                const fadeElements = document.querySelectorAll('.fade-in');
+                const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
                 
                 const fadeInOnScroll = () => {
                     fadeElements.forEach(element => {
@@ -1655,9 +2127,6 @@
                 
                 // Check on scroll
                 window.addEventListener('scroll', fadeInOnScroll);
-                
-                // Check on resize
-                window.addEventListener('resize', fadeInOnScroll);
             }
         });
     </script>
